@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <script src="https://cdn.socket.io/socket.io-3.0.0.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.js" integrity="sha512-SXo2rCaEJmbAPoxtaSjW+/hLaVCMAJ1CX8XnIP02x6/LIaWQp4GipKxQhBwL8Tn5U/K+lD9AaM4f4mXJdKnDQw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </head>
+  <body>
+    <ul>
+        
+    </ul>
+
+    <input placeholder="message">
+    <button>Send</button>
+    <button type="button" onclick="getImage(event)" > Show Images</button><br />
+    <h1 style="text-align: center; color: blue">Here are the Results:</h1>
+    <p id="demo"></p>
+<script>
+  
+const socket = io('ws://localhost:8080');
+
+socket.on('message', text => {
+
+    const el = document.createElement('li');
+    el.innerHTML = text;
+    document.querySelector('ul').appendChild(el)
+
+});
+
+document.querySelector('button').onclick = () => {
+
+    const text = document.querySelector('input').value;
+    socket.emit('message', text)
+    
+}
+</script>
+    
+    <script>
+      function getImage(e) {
+
+        e.preventDefault();
+        console.log("hii");
+
+        axios
+          .get(
+            "http://localhost:8000/getImages",
+            {},
+            {
+              headers: { "Content-Type": "application/json" },
+            }
+          )
+          .then((response) => {
+            
+            console.log(response.data);
+    //         for (let i = 0; i < 850; i++) {
+    //           console.log(response.data[i].urls)
+    //           document.getElementById(
+    //             "demo"
+    //           ).innerHTML += `<img src="${response.data[i].urls}" style="border:1px solid black;margin-bottom:4px;margin-top:14px; margin-right: 20px" width="100px" height="100px"
+    // alt="img">`;
+    //         }
+          });
+      }
+    </script>
+  </body>
+</html>

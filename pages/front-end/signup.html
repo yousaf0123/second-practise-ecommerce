@@ -1,0 +1,123 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AdminLTE 3 | Registration Page</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/assets/plugins/fontawesome-free/css/all.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/assets/dist/css/adminlte.min.css">
+  <script src="https://kit.fontawesome.com/eaaf251e65.js" crossorigin="anonymous"></script>
+</head>
+<body class="register-page" style="min-height: 570.781px;">
+<div class="register-box">
+  <div class="register-logo">
+    <a href="/assets/index2.html"><b>Handy</b>Ecommerce</a>
+  </div>
+
+  <div class="card">
+    <div class="card-body register-card-body">
+      <p class="login-box-msg">Register a new membership</p>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Full name" name="name" id="name">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <i class="fas fa-user"></i>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="number" class="form-control" placeholder="03XXXXXXXXX"  name="number" id="number">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <i class="fa-solid fa-mobile-screen-button"></i>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Email"  name="email" id="email">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Password"  name="password" id="password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Retype password"  name="retype" id="retype">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+        
+          <div class="col-8 flex-right"></div>
+          <div class="col-4 ">
+            <button type="submit" onclick="signup()" class="btn btn-primary btn-block">Register</button>
+          </div>
+          <!-- /.col -->
+        </div>
+
+      <a href="login.html" class="text-center">I already have a membership</a>
+    </div>
+</div>
+
+<script src="/assets/plugins/jquery/jquery.min.js"></script>
+
+<script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/dist/js/adminlte.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.js" integrity="sha512-SXo2rCaEJmbAPoxtaSjW+/hLaVCMAJ1CX8XnIP02x6/LIaWQp4GipKxQhBwL8Tn5U/K+lD9AaM4f4mXJdKnDQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+function signup() {
+  const name =document.getElementById('name').value
+  axios
+    .post(
+      "https://b023-182-179-185-216.in.ngrok.io/signup",
+      {
+        name: document.getElementById('name').value,
+        number: document.getElementById('number').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+        retype: document.getElementById('retype').value
+      },
+      {
+        headers: {'Content-Type': 'application/json'}
+      }
+    )
+    .then((response) => {
+      
+      if(response.data.errors==null)
+      {
+        location.href="/login"
+      }
+      else{
+        console.log(response.data.errors)
+      }
+   
+    
+             
+  
+  })
+  
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+    </script>
+
+</body>
+</html>

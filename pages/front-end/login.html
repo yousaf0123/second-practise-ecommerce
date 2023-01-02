@@ -1,0 +1,129 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AdminLTE 3 | Log in</title>
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback"
+    />
+    <link
+      rel="stylesheet"
+      href="/assets/plugins/fontawesome-free/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/assets/dist/css/adminlte.min.css" />
+  </head>
+  <body class="login-page" style="min-height: 496.781px">
+    <div class="login-box">
+      <div class="login-logo">
+        <a href="/assets/index2.html"><b>Admin</b>LTE</a>
+      </div>
+      <div class="card">
+        <div class="card-body login-card-body">
+          <p class="login-box-msg">Sign in to start your session</p>
+
+          <div class="input-group mb-3">
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Email"
+              name="email"
+              id="email"
+            />
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              name="password"
+              id="password"
+            />
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <div class="icheck-primary">
+                <input type="checkbox" id="remember" />
+                <label for="remember"> Remember Me </label>
+              </div>
+            </div>
+            <div class="col-4">
+              <button onclick="login()" class="btn btn-primary btn-block">
+                Sign In
+              </button>
+            </div>
+          </div>
+
+          <p class="mb-1">
+            <a href="forgot-password.html">I forgot my password</a>
+          </p>
+          <p class="mb-0">
+            <a href="register.html" class="text-center">
+              Register a new membership</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    </div>
+    <div class="w-100 h-100" id="demo">
+
+
+    <script src="/assets/plugins/jquery/jquery.min.js"></script>
+    <script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/dist/js/adminlte.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.js"
+      integrity="sha512-SXo2rCaEJmbAPoxtaSjW+/hLaVCMAJ1CX8XnIP02x6/LIaWQp4GipKxQhBwL8Tn5U/K+lD9AaM4f4mXJdKnDQw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+          function login() {
+            
+            axios
+              .post(
+                "https://b023-182-179-185-216.in.ngrok.io/login",
+                {
+                  email: document.getElementById('email').value,
+                  password: document.getElementById('password').value,
+                },
+                {
+                  headers: {'Content-Type': 'application/json'}
+                }
+              )
+              .then((response) => {
+                document.cookie = response.data;
+                console.log(document.cookie)
+                 if(response.data!==''){
+                 window.location.href="/dashboard"
+                 console.log(document.cookie)
+                 }
+                 else{
+                  window.location.href="/signup"
+                 }
+          })
+        }
+        function dashboard(response){
+          
+          console.log(document.cookie)
+        }
+    </script>
+  </body>
+</html>
